@@ -17,6 +17,7 @@ EE_LOGIN_URL = 'https://ers.cr.usgs.gov/login/'
 EE_LOGOUT_URL = 'https://earthexplorer.usgs.gov/logout'
 EE_DOWNLOAD_URL = 'https://earthexplorer.usgs.gov/download/{folder}/{sid}/STANDARD/EE'
 EE_FOLDER = {
+    'LANDSAT_MSS_C1': '14661',
     'LANDSAT_TM_C1': '12266',
     'LANDSAT_ETM_C1': '12267',
     'LANDSAT_8_C1': '12864'
