@@ -87,6 +87,7 @@ class EarthExplorer(object):
                                 pbar.update(chunk_size)
             else:
                 print("Got status code '500'")
+                return ""
         return local_filename
 
     def download(self, scene_id, output_dir):
