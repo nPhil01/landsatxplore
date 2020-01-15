@@ -75,7 +75,7 @@ class EarthExplorer(object):
     def _download(self, url, output_dir, chunk_size=1024):
         """Download remote file given its URL."""
         with self.session.get(url, stream=True, allow_redirects=True) as r:
-            try:
+            if r.status_code != 500:
                 file_size = int(r.headers.get('Content-Length'))
                 with tqdm(total=file_size, unit_scale=True, unit='B', unit_divisor=1024) as pbar:
                     local_filename = r.headers['Content-Disposition'].split('=')[-1]
@@ -85,15 +85,8 @@ class EarthExplorer(object):
                             if chunk:
                                 f.write(chunk)
                                 pbar.update(chunk_size)
-            except Exception:
-                print(r)
-                print("Missing metadata for this dataset, downloading without progress bar!")
-                local_filename = r.headers['Content-Disposition'].split('=')[-1]
-                local_filename = os.path.join(output_dir, local_filename)
-                with open(local_filename, 'wb') as f:
-                    for chunk in r.iter_content(chunk_size=chunk_size):
-                        if chunk:
-                            f.write(chunk)
+            else:
+                print("Got status code '500'")
         return local_filename
 
     def download(self, scene_id, output_dir):
