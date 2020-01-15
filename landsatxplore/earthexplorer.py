@@ -75,7 +75,7 @@ class EarthExplorer(object):
     def _download(self, url, output_dir, chunk_size=1024):
         """Download remote file given its URL."""
         with self.session.get(url, stream=True, allow_redirects=True) as r:
-            file_size = int(r.headers['Content-Length'])
+            file_size = int(r.headers.get('Content-Length'))
             with tqdm(total=file_size, unit_scale=True, unit='B', unit_divisor=1024) as pbar:
                 local_filename = r.headers['Content-Disposition'].split('=')[-1]
                 local_filename = os.path.join(output_dir, local_filename)
