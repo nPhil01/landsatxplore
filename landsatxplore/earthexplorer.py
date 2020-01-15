@@ -86,6 +86,7 @@ class EarthExplorer(object):
                                 f.write(chunk)
                                 pbar.update(chunk_size)
             except Exception:
+                print(r)
                 print("Missing metadata for this dataset, downloading without progress bar!")
                 local_filename = r.headers['Content-Disposition'].split('=')[-1]
                 local_filename = os.path.join(output_dir, local_filename)
